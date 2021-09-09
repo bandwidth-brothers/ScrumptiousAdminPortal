@@ -73,7 +73,7 @@ const CreateRestaurant = (props) => {
                                 <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <Form.Label bsPrefix="req-form=label" column="lg">Price </Form.Label>
+                                <Form.Label bsPrefix="req-form-label" column="lg">Price </Form.Label>
                                 <InputGroup className="mb-3">
                                     <InputGroup.Text>$</InputGroup.Text>
                                     <Form.Control
