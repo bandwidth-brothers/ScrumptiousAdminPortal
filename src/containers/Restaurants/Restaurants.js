@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { CardColumns, Col, Container, Row } from 'react-bootstrap'
+import { CardColumns } from 'react-bootstrap'
 
 import RestaurantCard from '../../components/Restaurant/RestaurantCard'
 import ResultsHeader from '../ResultsHeader/ResultsHeader'
-import Sidebar from '../Sidebar/Sidebar'
-
-import styled from 'styled-components'
-import Filter from '../../components/Sidebar/Filter'
+import CreateRestaurant from '../../components/CreateModal/CreateRestaurant/CreateRestaurant'
 
 
 
@@ -56,7 +53,10 @@ export default class Restaurants extends Component {
             <section>
                 <ResultsHeader
                     name="Restaurants"
-                    submitCreate={this.reloadRestaurant} />
+                    buttonText="+ Restaurant">
+                    <CreateRestaurant
+                        submitCreate={this.reloadRestaurant} />
+                </ResultsHeader>
                 <CardColumns>
                     {this.state.restaurants ? this.restaurantList() : null}
                 </CardColumns>

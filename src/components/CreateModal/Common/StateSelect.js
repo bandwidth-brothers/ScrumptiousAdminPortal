@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Fragment } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 
 const StateSelect = (props) => {
     return (

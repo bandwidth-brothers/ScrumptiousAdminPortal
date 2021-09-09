@@ -37,7 +37,7 @@ class UserDropdown extends Component {
         return (
             <React.Fragment>
                 <StyledList>
-                    <img src={userProfile} onClick={this.showUserSettingsHandler}></img>
+                    <img src={userProfile} alt="user-pic" onClick={this.showUserSettingsHandler}></img>
                 </StyledList>
             </React.Fragment>
         );

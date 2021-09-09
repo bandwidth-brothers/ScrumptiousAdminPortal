@@ -1,5 +1,5 @@
-import { Modal, Button, Form, Col, Row } from 'react-bootstrap'
-import React, { useState } from 'react'
+import { Modal, Button, Form } from 'react-bootstrap'
+import React from 'react'
 import { withRouter, Route } from 'react-router-dom'
 import axios from 'axios'
 import { Formik } from 'formik'

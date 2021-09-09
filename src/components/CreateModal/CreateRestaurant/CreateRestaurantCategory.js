@@ -1,6 +1,6 @@
 import { Formik } from 'formik'
-import React, { useState, useEffect } from 'react'
-import { Form, Button, CloseButton, Row, Fragment } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Form, Button, CloseButton, Row } from 'react-bootstrap'
 import * as yup from 'yup'
 import styled from 'styled-components'
 import axios from 'axios'
@@ -54,7 +54,7 @@ const CreateRestaurantCategory = (props) => {
 
 
         let tmpCategories = categories.map((e, ind) => {
-            if (ind == i) {
+            if (ind === i) {
                 return { type: "", active: false, visible: false }
             } else {
                 return e
@@ -71,7 +71,7 @@ const CreateRestaurantCategory = (props) => {
         //console.log(props)
         let categoriesList = []
         for (let key in values) {
-            if (values[key] != "") {
+            if (values[key] !== "") {
                 categoriesList.push({
                     type: values[key]
                 })
@@ -146,6 +146,8 @@ const CreateRestaurantCategory = (props) => {
                                     </Form.Group>
 
                                 )
+                            } else {
+                                return null
                             }
                         })}
                     </Form>

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Col, Row, Button } from 'react-bootstrap'
+import { Col, Row, Button } from 'react-bootstrap'
 import styled from 'styled-components'
 
-import CreateRestaurant from '../../components/CreateModal/CreateRestaurant/CreateRestaurant';
 
 const StyledContainer = styled.div`
     border-bottom: solid 1px grey;
@@ -23,13 +22,26 @@ const ResultsHeader = (props) => {
 
     const handleCreateOpen = () => {
         setShow(true)
-        console.log("HELLO")
+        console.log(show)
     }
 
     const handleClose = () => {
         setShow(false)
     }
 
+    const childrenWithProps = React.Children.map(props.children, child => {
+        // Checking isValidElement is the safe way and avoids a typescript
+        // error too.
+
+        if (React.isValidElement(child)) {
+            return React.cloneElement(child, {
+                show: show,
+                onHide: handleClose,
+                submitCreate: props.submitCreate
+            });
+        }
+        return child;
+    });
 
 
     return (
@@ -41,15 +53,18 @@ const ResultsHeader = (props) => {
                         className="far-right"
                         variant="primary"
                         onClick={handleCreateOpen}>
-                        + Restaurant
+                        {props.buttonText}
                     </Button>
                 </StyledCol>
 
             </Row>
-            <CreateRestaurant
+            {childrenWithProps}
+
+
+            {/* <CreateRestaurant
                 show={show}
                 onHide={handleClose}
-                submitCreate={props.submitCreate} />
+                submitCreate={props.submitCreate} /> */}
         </StyledContainer>
     )
 
