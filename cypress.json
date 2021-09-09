@@ -1,1 +1,6 @@
-{}
+{
+    "baseUrl": "http://localhost:3000",
+    "ignoreTestFiles": "**/admin-create-restaurant/*.spec.js",
+    "viewportHeight": 1320,
+    "viewportWidth": 2000
+}

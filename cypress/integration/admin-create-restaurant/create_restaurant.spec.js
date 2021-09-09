@@ -1,8 +1,7 @@
 
 describe('create restaurant', () => {
     beforeEach(() => {
-        cy.visit('localhost:3000/admin/restaurants')
-        cy.viewport(2000, 1320)
+        cy.visit('/admin/restaurants')
 
     })
 
