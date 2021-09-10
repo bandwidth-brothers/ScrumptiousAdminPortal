@@ -4,6 +4,7 @@ import { Form, Button, CloseButton, Row } from 'react-bootstrap'
 import * as yup from 'yup'
 import styled from 'styled-components'
 import axios from 'axios'
+import { getAuthToken } from '../../../Auth/authAxios'
 
 const schema = yup.object().shape({
 
@@ -82,7 +83,7 @@ const CreateRestaurantCategory = (props) => {
         }
         //console.log(categoryCollection)
         const { history } = props
-        axios.put("http://localhost:9041" + props.location.pathname, categoryCollection, { headers: { 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJVc2VySWQiOiJjMjI1YTE3OC1mNDdmLTRkNGQtOGUzNi1lNmMzZTk2MmRlOGUiLCJBdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJleHAiOjE2MzE0NzIyNTB9.zRalXLueNHSxnvORSTfQo9-U_ol2pqoqcx9sVc_EfvNS_noZ5yVTEixWrHk8xiBVqF2SkIUrniifBg5Bzzc22g' } })
+        axios.put("http://localhost:9041" + props.location.pathname, categoryCollection, { headers: { 'Authorization': getAuthToken() } })
             .then(res => {
                 //console.log(res.data)
                 //console.log(props.history)

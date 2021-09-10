@@ -5,6 +5,7 @@ import { CardColumns } from 'react-bootstrap'
 import RestaurantCard from '../../components/Restaurant/RestaurantCard'
 import ResultsHeader from '../ResultsHeader/ResultsHeader'
 import CreateRestaurant from '../../components/CreateModal/CreateRestaurant/CreateRestaurant'
+import { getAuthToken } from '../../Auth/authAxios'
 
 
 
@@ -18,7 +19,7 @@ export default class Restaurants extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:9041/admin/restaurants', { headers: { 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJVc2VySWQiOiJjMjI1YTE3OC1mNDdmLTRkNGQtOGUzNi1lNmMzZTk2MmRlOGUiLCJBdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJleHAiOjE2MzE0NzIyNTB9.zRalXLueNHSxnvORSTfQo9-U_ol2pqoqcx9sVc_EfvNS_noZ5yVTEixWrHk8xiBVqF2SkIUrniifBg5Bzzc22g' } })
+        axios.get('http://localhost:9041/admin/restaurants', { headers: { 'Authorization': getAuthToken() } })
             .then(res => {
                 console.log(res.data)
                 this.setState({ restaurants: res.data })
@@ -28,7 +29,7 @@ export default class Restaurants extends Component {
     }
 
     reloadRestaurant = () => {
-        axios.get('http://localhost:9041/admin/restaurants', { headers: { 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJVc2VySWQiOiJjMjI1YTE3OC1mNDdmLTRkNGQtOGUzNi1lNmMzZTk2MmRlOGUiLCJBdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJleHAiOjE2MzE0NzIyNTB9.zRalXLueNHSxnvORSTfQo9-U_ol2pqoqcx9sVc_EfvNS_noZ5yVTEixWrHk8xiBVqF2SkIUrniifBg5Bzzc22g' } })
+        axios.get('http://localhost:9041/admin/restaurants', { headers: { 'Authorization': getAuthToken() } })
             .then(res => {
                 console.log(res.data)
                 this.setState({ restaurants: res.data })

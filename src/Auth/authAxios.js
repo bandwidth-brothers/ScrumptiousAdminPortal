@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-    baseUrl: 'localhost:9041'
+    baseUrl: 'localhost:9040'
 })
 
 export const setAuthToken = token => {

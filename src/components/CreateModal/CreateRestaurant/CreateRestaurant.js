@@ -7,6 +7,7 @@ import * as yup from 'yup'
 
 import StateSelect from '../Common/StateSelect'
 import CreateRestaurantCategory from './CreateRestaurantCategory'
+import { getAuthToken } from '../../../Auth/authAxios'
 
 const schema = yup.object().shape({
     name: yup.string().required().label('Name').max(100, "Name is too long"),
@@ -28,7 +29,7 @@ const CreateRestaurant = (props) => {
         console.log("Attempting to Create Restaurant")
         console.log(values)
         console.log(props.history)
-        axios.post('http://localhost:9041/admin/restaurants', values, { headers: { 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJVc2VySWQiOiJjMjI1YTE3OC1mNDdmLTRkNGQtOGUzNi1lNmMzZTk2MmRlOGUiLCJBdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJleHAiOjE2MzE0NzIyNTB9.zRalXLueNHSxnvORSTfQo9-U_ol2pqoqcx9sVc_EfvNS_noZ5yVTEixWrHk8xiBVqF2SkIUrniifBg5Bzzc22g' } })
+        axios.post('http://localhost:9041/admin/restaurants', values, { headers: { 'Authorization': getAuthToken() } })
             .then(res => {
                 props.onHide()
                 props.submitCreate()
