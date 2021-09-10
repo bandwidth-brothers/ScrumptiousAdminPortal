@@ -7,7 +7,7 @@ import axios from 'axios'
 import { setAuthToken } from '../../../Auth/authAxios'
 
 const schema = yup.object().shape({
-    username: yup.string().required().label('Name').max(100, "Name is too long"),
+    username: yup.string().required().label('Email').email('Must be a valid email').max(255),
     password: yup.string().required().label('Password').trim()
 })
 
