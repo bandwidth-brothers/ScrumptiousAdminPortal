@@ -2,10 +2,14 @@ import { Navbar, Nav, Container, NavDropdown, FormControl, Form, Button } from '
 import React from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { getAuthToken } from '../../../Auth/authAxios';
+import styled from 'styled-components'
 
+import { getAuthToken } from '../../../Auth/authAxios';
 import UserDropdown from '../NavigationItems/UserDropdown';
 
+const StyledNav = styled(Navbar)`
+    height: 5vh;
+`
 
 const NavBar = (props) => {
 
@@ -27,7 +31,7 @@ const NavBar = (props) => {
 
     return (
         <header>
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <StyledNav collapseOnSelect expand="lg" bg="dark" variant="dark">
                 <Container>
                     <Navbar.Brand href="#home">Scrumptious</Navbar.Brand>
                     {props.isLoggedIn ?
@@ -57,19 +61,20 @@ const NavBar = (props) => {
                             </Navbar.Collapse>
                         </div> : null}
 
-                    <Nav>
+                    <Nav style={{ 'flexDirection': 'row' }}>
                         {props.isLoggedIn ?
                             <Navbar.Text>
                                 'Signed in as "ADMIN"' <Link to="/admin/logout" onClick={logoutHandler}>Logout</Link>
                             </Navbar.Text> :
                             <Navbar.Text>
-                                <Link to="/admin/login" >Login</Link>
+                                <Link to="/admin/login" >Login</Link> /
+                                <Link to="/admin/register" >Register</Link>
                             </Navbar.Text>
                         }
                         <UserDropdown />
                     </Nav>
                 </Container>
-            </Navbar>
+            </StyledNav>
         </header >
     )
 }
