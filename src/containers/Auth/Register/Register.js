@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { Formik } from 'formik'
@@ -25,6 +25,9 @@ const schema = yup.object().shape({
 
 
 const Register = (props) => {
+
+    const [errorMsg, setErrorMsg] = useState("")
+
     const handleSubmit = (values) => {
         //event.preventDefault()
 
@@ -42,8 +45,14 @@ const Register = (props) => {
                 //window.location.reload(true);
 
             }).catch(err => {
+                //console.log(err.response.status)
+                if (err.response.status === 500) {
+                    setErrorMsg("The email already exists in the system or something went wrong.")
+                    console.log(err)
+                } else {
+                    console.log(err)
+                }
                 //this.setState({ isSubmitting: false })
-                console.log(err)
             })
 
 
@@ -161,12 +170,16 @@ const Register = (props) => {
                                     isInvalid={touched.phone && errors.phone} />
                                 <Form.Control.Feedback type="invalid">{errors.phone}</Form.Control.Feedback>
                             </Form.Group>
-                            <Button
-                                variant="primary"
-                                type="submit"
-                                disabled={touched.username && touched.password && !isValid}>Register</Button>
-                            <Form.Text>Already have an account? <Link to="/admin/login">Login</Link> here.</Form.Text>
+                            <div>
+                                <Button
+                                    variant="primary"
+                                    type="submit"
+                                    disabled={touched.username && touched.password && !isValid}>Register</Button>
+                                <Form.Text>Already have an account? <Link to="/admin/login">Login</Link> here.</Form.Text>
+                            </div>
+                            <Form.Text className="error-msg">{errorMsg}</Form.Text>
                         </Form>
+
                     )
                     }
                 </Formik >

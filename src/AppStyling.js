@@ -36,7 +36,6 @@ input[type=email]{
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
-    color: red;
 }
 
 input[type=submit], button {
@@ -46,6 +45,13 @@ input[type=submit], button {
     padding: 9px;
     border-radius: 5px;
     border: 1px solid #a8fcff;
+}
+
+.error-msg {
+    width: 100%;
+    margin-top: .25rem;
+    font-size: .875em;
+    color: #dc3545
 }
 `
 
