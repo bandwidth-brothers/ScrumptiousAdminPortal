@@ -1,10 +1,14 @@
 import React from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { Formik } from 'formik'
+import { Link } from 'react-router-dom'
 import * as yup from 'yup'
 import axios from 'axios'
 
 import { setAuthToken } from '../../../Auth/authAxios'
+import CenterDiv from '../../UI/CenterDiv/CenterDiv'
+
+import { StyledFormBox } from '../../../AppStyling'
 
 const schema = yup.object().shape({
     username: yup.string().required().label('Email').email('Must be a valid email').max(255),
@@ -47,55 +51,60 @@ const Login = (props) => {
     }
 
     return (
-        <Formik
-            initialValues={{
-                username: "",
-                password: ""
-            }}
-            onSubmit={(values) => {
-                console.log("Submit")
-                handleSubmit(values)
-            }}
-            validationSchema={schema}
-        >
-            {({ handleChange, handleSubmit, values, errors, isValid, touched, isSubmitting, setFieldValue }) => (
-                <Form noValidate onSubmit={handleSubmit}>
-                    <Form.Group className="mb-3" >
-                        <Form.Label bsPrefix="req-form-label" column="lg">Email </Form.Label>
+        <CenterDiv>
+            <StyledFormBox>
+                <Formik
+                    initialValues={{
+                        username: "",
+                        password: ""
+                    }}
+                    onSubmit={(values) => {
+                        console.log("Submit")
+                        handleSubmit(values)
+                    }}
+                    validationSchema={schema}
+                >
+                    {({ handleChange, handleSubmit, values, errors, isValid, touched, isSubmitting, setFieldValue }) => (
+                        <Form noValidate onSubmit={handleSubmit}>
+                            <Form.Label column="lg" className="title"> Login </Form.Label>
+                            <Form.Group className="formGroup">
+                                <Form.Label bsPrefix="req-form-label" column="md">Email </Form.Label>
+                                <Form.Control
+                                    required
+                                    type="text"
+                                    placeholder="Email"
+                                    name="username"
+                                    value={values.username}
+                                    onChange={handleChange}
+                                    isInvalid={touched.username && errors.username} />
+                                <Form.Control.Feedback type="invalid">{errors.username}</Form.Control.Feedback>
+                            </Form.Group>
+                            <Form.Group className="formGroup">
+                                <Form.Label bsPrefix="req-form-label" column="md">Password </Form.Label>
+                                <Form.Control
+                                    required
+                                    type="password"
+                                    placeholder="Password"
+                                    name="password"
+                                    value={values.password}
+                                    onChange={handleChange}
+                                    isInvalid={touched.password && errors.password} />
+                                <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
+                            </Form.Group>
 
-                        <Form.Control
-                            required
-                            type="text"
-                            placeholder="Email"
-                            name="username"
-                            value={values.username}
-                            onChange={handleChange}
-                            isInvalid={touched.username && errors.username} />
-                        <Form.Control.Feedback type="invalid">{errors.username}</Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label bsPrefix="req-form-label" column="lg">Password </Form.Label>
-                        <Form.Control
-                            required
-                            type="password"
-                            placeholder="Password"
-                            name="password"
-                            value={values.password}
-                            onChange={handleChange}
-                            isInvalid={touched.password && errors.password} />
-                        <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
-                    </Form.Group>
 
+                            <Button
+                                variant="primary"
+                                type="submit"
+                                disabled={touched.username && touched.password && !isValid}>Login</Button>
+                            <Form.Text>Need an account? <Link to="/admin/register">Register</Link> here.</Form.Text>
 
-                    <Button
-                        variant="primary"
-                        type="submit"
-                        disabled={touched.username && touched.password && !isValid}>Login</Button>
-
-                </Form>
-            )
-            }
-        </Formik >
+                        </Form>
+                    )
+                    }
+                </Formik >
+            </StyledFormBox>
+        </CenterDiv >
     )
 }
 

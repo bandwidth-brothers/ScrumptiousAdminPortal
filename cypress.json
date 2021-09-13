@@ -2,7 +2,8 @@
     "baseUrl": "http://localhost:3000",
     "ignoreTestFiles": [
         "**/admin-create-restaurant/*.spec.js",
-        "**/admin-create-menu-item/*.spec.js"
+        "**/admin-create-menu-item/*.spec.js",
+        "authentication_login_logout.spec.js"
     ],
     "viewportHeight": 1320,
     "viewportWidth": 2000
