@@ -1,68 +1,89 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { CardColumns } from 'react-bootstrap'
+
+import { Typography, Paper } from '@mui/material'
 
 import RestaurantCard from '../../components/Restaurant/RestaurantCard'
 import ResultsHeader from '../ResultsHeader/ResultsHeader'
 import CreateRestaurant from '../../components/CreateModal/CreateRestaurant/CreateRestaurant'
 import { getAuthToken } from '../../Auth/authAxios'
 
+import { useDispatch } from 'react-redux'
+import { changeTitle } from '../../redux/actions/ActionsIndex'
 
 
-export default class Restaurants extends Component {
+export default function Restaurants() {
+    const dispatch = useDispatch()
+    const [restaurants, setRestaurants] = useState([])
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            restaurants: []
-        }
-    }
-
-    componentDidMount() {
-        axios.get('http://localhost:9041/admin/restaurants', { headers: { 'Authorization': getAuthToken() } })
+    useEffect(() => {
+        dispatch(changeTitle('Restaurants'))
+        axios.get('http://localhost:8080/restaurant/admin/restaurants', { headers: { 'Authorization': getAuthToken() } })
             .then(res => {
                 console.log(res.data)
-                this.setState({ restaurants: res.data })
+                if (Array.isArray(res.data)) {
+                    setRestaurants(res.data)
+                }
+            }).catch(e => {
+                console.log(e)
+            })
+    }, [dispatch])
+
+
+    const reloadRestaurant = () => {
+        console.log("reloading")
+        axios.get('http://localhost:8080/restaurant/admin/restaurants', { headers: { 'Authorization': getAuthToken() } })
+            .then(res => {
+                console.log(res.data)
+                if (Array.isArray(res.data)) {
+                    setRestaurants(res.data)
+                }
             }).catch(e => {
                 console.log(e)
             })
     }
 
-    reloadRestaurant = () => {
-        axios.get('http://localhost:9041/admin/restaurants', { headers: { 'Authorization': getAuthToken() } })
-            .then(res => {
-                console.log(res.data)
-                this.setState({ restaurants: res.data })
-            }).catch(e => {
-                console.log(e)
-            })
-    }
+    const restaurantList = restaurants.map(restaurant => {
+        console.log("CARD")
+        return <RestaurantCard
+            key={restaurant.id}
+            name={restaurant.name}
+            address={restaurant.address}
+            rating={restaurant.rating} />
+    })
 
-    restaurantList = () => {
-        return this.state.restaurants.map(restaurant => {
-            return <RestaurantCard
-                key={restaurant.restaurantId}
-                name={restaurant.name}
-                address={restaurant.address}
-                rating={restaurant.rating} />
-        })
-    }
 
-    render() {
-        return (
 
-            <section>
-                <ResultsHeader
-                    name="Restaurants"
-                    buttonText="+ Restaurant">
-                    <CreateRestaurant
-                        submitCreate={this.reloadRestaurant} />
-                </ResultsHeader>
-                <CardColumns>
-                    {this.state.restaurants ? this.restaurantList() : null}
-                </CardColumns>
-            </section>
+    return (
 
-        )
-    }
+        <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>
+
+            <ResultsHeader
+                buttonText="Add restaurant"
+                reload={reloadRestaurant}>
+                <CreateRestaurant />
+            </ResultsHeader>
+
+
+            {restaurants.length !== 0 ? restaurantList :
+                <Typography sx={{ my: 5, mx: 2 }} color="text.secondary" align="center">
+                    No restaurants available yet
+                </Typography>}
+
+        </Paper>
+
+        //  <section>
+        //     <ResultsHeader
+        //         name="Restaurants"
+        //         buttonText="+ Restaurant">
+        //         <CreateRestaurant
+        //             submitCreate={reloadRestaurant} />
+        //     </ResultsHeader>
+        //     <CardColumns>
+        //         {restaurants ? restaurantList : null}
+        //     </CardColumns>
+        // </section> 
+
+    )
+
 }
