@@ -1,72 +1,76 @@
 import React from 'react'
-import { Form } from 'react-bootstrap'
+import { FormControl, Select, InputLabel, MenuItem, FormHelperText } from '@mui/material'
 
 const StateSelect = (props) => {
     return (
-        <React.Fragment>
-            <Form.Select
-                aria-label="state"
-                component={props.component}
-                name={props.name}
+        <FormControl margin="normal" required fullWidth>
+            <InputLabel
+                id="select-label"
+                style={props.InputLabelProps.style}>State</InputLabel>
+            <Select
+                labelId="select-label"
+                id="select"
                 value={props.value}
+                name={props.name}
+                label="State"
                 onChange={props.onChange}
-                isInvalid={props.isInvalid}>
-                <option value="">N/A</option>
-                <option value="AK">Alaska</option>
-                <option value="AL">Alabama</option>
-                <option value="AR">Arkansas</option>
-                <option value="AZ">Arizona</option>
-                <option value="CA">California</option>
-                <option value="CO">Colorado</option>
-                <option value="CT">Connecticut</option>
-                <option value="DC">District of Columbia</option>
-                <option value="DE">Delaware</option>
-                <option value="FL">Florida</option>
-                <option value="GA">Georgia</option>
-                <option value="HI">Hawaii</option>
-                <option value="IA">Iowa</option>
-                <option value="ID">Idaho</option>
-                <option value="IL">Illinois</option>
-                <option value="IN">Indiana</option>
-                <option value="KS">Kansas</option>
-                <option value="KY">Kentucky</option>
-                <option value="LA">Louisiana</option>
-                <option value="MA">Massachusetts</option>
-                <option value="MD">Maryland</option>
-                <option value="ME">Maine</option>
-                <option value="MI">Michigan</option>
-                <option value="MN">Minnesota</option>
-                <option value="MO">Missouri</option>
-                <option value="MS">Mississippi</option>
-                <option value="MT">Montana</option>
-                <option value="NC">North Carolina</option>
-                <option value="ND">North Dakota</option>
-                <option value="NE">Nebraska</option>
-                <option value="NH">New Hampshire</option>
-                <option value="NJ">New Jersey</option>
-                <option value="NM">New Mexico</option>
-                <option value="NV">Nevada</option>
-                <option value="NY">New York</option>
-                <option value="OH">Ohio</option>
-                <option value="OK">Oklahoma</option>
-                <option value="OR">Oregon</option>
-                <option value="PA">Pennsylvania</option>
-                <option value="PR">Puerto Rico</option>
-                <option value="RI">Rhode Island</option>
-                <option value="SC">South Carolina</option>
-                <option value="SD">South Dakota</option>
-                <option value="TN">Tennessee</option>
-                <option value="TX">Texas</option>
-                <option value="UT">Utah</option>
-                <option value="VA">Virginia</option>
-                <option value="VT">Vermont</option>
-                <option value="WA">Washington</option>
-                <option value="WI">Wisconsin</option>
-                <option value="WV">West Virginia</option>
-                <option value="WY">Wyoming</option>
-            </Form.Select>
-            <Form.Control.Feedback type="invalid">{props.isInvalid}</Form.Control.Feedback>
-        </React.Fragment>
+            >
+                <MenuItem value="">N/A</MenuItem>
+                <MenuItem value="AK">Alaska</MenuItem>
+                <MenuItem value="AL">Alabama</MenuItem>
+                <MenuItem value="AR">Arkansas</MenuItem>
+                <MenuItem value="AZ">Arizona</MenuItem>
+                <MenuItem value="CA">California</MenuItem>
+                <MenuItem value="CO">Colorado</MenuItem>
+                <MenuItem value="CT">Connecticut</MenuItem>
+                <MenuItem value="DC">District of Columbia</MenuItem>
+                <MenuItem value="DE">Delaware</MenuItem>
+                <MenuItem value="FL">Florida</MenuItem>
+                <MenuItem value="GA">Georgia</MenuItem>
+                <MenuItem value="HI">Hawaii</MenuItem>
+                <MenuItem value="IA">Iowa</MenuItem>
+                <MenuItem value="ID">Idaho</MenuItem>
+                <MenuItem value="IL">Illinois</MenuItem>
+                <MenuItem value="IN">Indiana</MenuItem>
+                <MenuItem value="KS">Kansas</MenuItem>
+                <MenuItem value="KY">Kentucky</MenuItem>
+                <MenuItem value="LA">Louisiana</MenuItem>
+                <MenuItem value="MA">Massachusetts</MenuItem>
+                <MenuItem value="MD">Maryland</MenuItem>
+                <MenuItem value="ME">Maine</MenuItem>
+                <MenuItem value="MI">Michigan</MenuItem>
+                <MenuItem value="MN">Minnesota</MenuItem>
+                <MenuItem value="MO">Missouri</MenuItem>
+                <MenuItem value="MS">Mississippi</MenuItem>
+                <MenuItem value="MT">Montana</MenuItem>
+                <MenuItem value="NC">North Carolina</MenuItem>
+                <MenuItem value="ND">North Dakota</MenuItem>
+                <MenuItem value="NE">Nebraska</MenuItem>
+                <MenuItem value="NH">New Hampshire</MenuItem>
+                <MenuItem value="NJ">New Jersey</MenuItem>
+                <MenuItem value="NM">New Mexico</MenuItem>
+                <MenuItem value="NV">Nevada</MenuItem>
+                <MenuItem value="NY">New York</MenuItem>
+                <MenuItem value="OH">Ohio</MenuItem>
+                <MenuItem value="OK">Oklahoma</MenuItem>
+                <MenuItem value="OR">Oregon</MenuItem>
+                <MenuItem value="PA">Pennsylvania</MenuItem>
+                <MenuItem value="PR">Puerto Rico</MenuItem>
+                <MenuItem value="RI">Rhode Island</MenuItem>
+                <MenuItem value="SC">South Carolina</MenuItem>
+                <MenuItem value="SD">South Dakota</MenuItem>
+                <MenuItem value="TN">Tennessee</MenuItem>
+                <MenuItem value="TX">Texas</MenuItem>
+                <MenuItem value="UT">Utah</MenuItem>
+                <MenuItem value="VA">Virginia</MenuItem>
+                <MenuItem value="VT">Vermont</MenuItem>
+                <MenuItem value="WA">Washington</MenuItem>
+                <MenuItem value="WI">Wisconsin</MenuItem>
+                <MenuItem value="WV">West Virginia</MenuItem>
+                <MenuItem value="WY">Wyoming</MenuItem>
+            </Select>
+            <FormHelperText id="helper-text">{props.helperText}</FormHelperText>
+        </FormControl>
     )
 }
 
