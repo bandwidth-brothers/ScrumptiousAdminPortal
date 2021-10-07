@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Typography, CssBaseline, Box, useMediaQuery } from '@mui/material'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import NavigationSidebar from './Sidebar/NavigationSidebar';
 import Header from './higher-order-components/Header/Header'
 
@@ -170,6 +170,34 @@ theme = {
 
 const drawerWidth = 256;
 
+const styles = {
+    root: {
+        display: 'flex',
+        minHeight: '100vh',
+    },
+    drawer: {
+        [theme.breakpoints.up('sm')]: {
+            width: drawerWidth,
+            flexShrink: 0,
+        },
+    },
+    app: {
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    main: {
+        flex: 1,
+        padding: theme.spacing(6, 4),
+        background: '#fff',
+    },
+    footer: {
+        padding: theme.spacing(2),
+        background: '#eaeff1',
+    },
+};
+
+
 const Layout = () => {
 
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -235,4 +263,4 @@ const Layout = () => {
 
 
 
-export default Layout
+export default withStyles(styles)(Layout)

@@ -21,7 +21,7 @@ function Header(props) {
         <React.Fragment>
             <AppBar></AppBar>
             <AppBar color="primary" position="sticky" elevation={0}>
-                <Toolbar>
+                {/* <Toolbar>
                     <Grid container spacing={1} alignItems="center">
                         <Grid sx={{ display: { sm: 'none', xs: 'block' } }} item>
                             <IconButton
@@ -64,7 +64,7 @@ function Header(props) {
                             </IconButton>
                         </Grid>
                     </Grid>
-                </Toolbar>
+                </Toolbar> */}
             </AppBar>
             <AppBar
                 component="div"
@@ -80,7 +80,7 @@ function Header(props) {
                                 {title}
                             </Typography>
                         </Grid>
-                        <Grid item>
+                        {/* <Grid item>
                             <Button
                                 sx={{ borderColor: lightColor }}
                                 variant="outlined"
@@ -96,7 +96,7 @@ function Header(props) {
                                     <Help />
                                 </IconButton>
                             </Tooltip>
-                        </Grid>
+                        </Grid> */}
                     </Grid>
                 </Toolbar>
             </AppBar>
