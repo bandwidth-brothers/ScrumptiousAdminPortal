@@ -1,13 +1,15 @@
 import axios from 'axios'
 
 const instance = axios.create({
-    baseUrl: 'localhost:9041'
+    baseURL: 'http://localhost:8080/restaurant',
 })
 
 export const setAuthToken = token => {
     if (token) {
+        console.log("CREATE")
         instance.defaults.headers.common['Authorization'] = `${token}`;
     } else {
+        console.log("DELETE")
         delete instance.defaults.headers.common['Authorization'];
     }
 }

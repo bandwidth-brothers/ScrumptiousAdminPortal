@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 
 import userProfile from '../../assets/images/logo-template.jpg'
 import styled from 'styled-components'
@@ -18,12 +19,16 @@ const StyledCardActionArea = styled(CardActionArea)`
     justify-content: flex-start;
 `
 export default function RestaurantCard(props) {
+    const history = useHistory()
 
-
+    const restaurantHandle = (id) => {
+        history.push("/admin/restaurants/" + id)
+    }
 
     return (
         <StyledCard>
-            <StyledCardActionArea>
+            <StyledCardActionArea onClick={() => restaurantHandle(props.restaurant.id)}>
+                {console.log(props)}
                 <StyledCardMedia
                     component="img"
                     image={userProfile}
@@ -31,7 +36,7 @@ export default function RestaurantCard(props) {
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        {props.name}
+                        {props.restaurant.name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         {props.address.city}, {props.address.state}
