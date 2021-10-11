@@ -242,22 +242,6 @@ const Layout = () => {
                 </Box>
             </Box>
         </ThemeProvider>
-
-
-        // <Main>
-        //     <NavBar isLoggedIn={this.props.isLoggedIn}></NavBar>
-        //     <Switch>
-        //         <Route exact path="/admin/restaurants" component={SidebarAndMain} />
-        //         <Route exact path="/admin/restaurants/:id/category-collection" component={SidebarAndMain} />
-        //         <Route exact path="/admin/restaurants/:id" component={SidebarAndMain} />
-        //         <Route exact path="/admin/forbidden" component={Forbidden} />
-        //         <Route exact path="/admin" component={AdminHomepage} />
-        //         <Route exact path="/admin/login" component={Login} />
-        //         <Route exact path="/admin/register" component={Register} />
-        //         <Route exact path="/admin/logout" component={Logout} />
-        //         <Redirect path="/" to="/admin/login" />
-        //     </Switch>
-        // </Main>
     )
 }
 

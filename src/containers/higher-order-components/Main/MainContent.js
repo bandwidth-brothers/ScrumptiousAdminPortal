@@ -15,14 +15,12 @@ export default class MainContent extends Component {
         return (
             <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
                 < Switch >
-                    <Route exact path="/admin/restaurants" component={Restaurants} />
                     <Route exact path="/admin/settings" component={Settings} />
                     <Route exact path="/admin/restaurants/:id" component={FullRestaurant} />
-                    {/* <Route exact path="/admin/restaurants/:id/category-collection" component={SidebarAndMain} />
-            <Route exact path="/admin/restaurants/:id" component={SidebarAndMain} /> */}
+                    <Route exact path="/admin/restaurants" component={Restaurants} />
                     <Route exact path="/admin/forbidden" component={Forbidden} />
                     <Route exact path="/admin" component={AdminHomepage} />
-                    <Redirect path="/" to="/admin/login" />
+                    <Redirect path="/" to="/admin" />
                 </ Switch>
             </Box>
         )

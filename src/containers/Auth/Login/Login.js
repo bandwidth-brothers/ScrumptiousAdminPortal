@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { Button, Avatar, CssBaseline, TextField, FormControlLabel, Checkbox, Grid, Box, Typography, Container } from '@mui/material'
+import React, { } from 'react'
+import { Button, Avatar, CssBaseline, TextField, Grid, Box, Typography, Container } from '@mui/material'
 import { Formik } from 'formik'
 import { Link } from 'react-router-dom'
 import * as yup from 'yup'
@@ -10,8 +10,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CenterDiv from '../../UI/CenterDiv/CenterDiv'
 
 import AuthService from '../../../services/AuthService'
-import { LoggedStateContext } from '../../higher-order-components/Context/Context'
-import { setAuthToken } from '../../../axios'
+//import { LoggedStateContext } from '../../higher-order-components/Context/Context'
+//import { setAuthToken } from '../../../axios'
 
 const schema = yup.object().shape({
     username: yup.string().required().label('Email').email('Must be a valid email').max(255),
@@ -42,11 +42,11 @@ function Copyright(props) {
 
 const Login = (props) => {
 
-    const [isLogged, setLogged] = useContext(LoggedStateContext);
+    //const [logged, setLogged] = useContext(LoggedStateContext);
 
     const handleSubmit = (values) => {
         console.log("Attempting to Login")
-        const rtn = AuthService.login(values.username, values.password).then(result => {
+        AuthService.login(values.username, values.password).then(result => {
             console.log(typeof result)
             if (typeof result === "string") {
                 console.log(result)
@@ -54,7 +54,7 @@ const Login = (props) => {
             if (result !== undefined) {
                 console.log(result)
                 props.history.push('/admin')
-                setLogged(true)
+                //setLogged(true)
             }
         })
 

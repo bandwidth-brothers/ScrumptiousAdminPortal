@@ -1,4 +1,4 @@
-import instance from "../axios";
+import instance from "../Auth/restaurantAxios";
 
 
 const getRestaurantList = () => {
@@ -6,13 +6,27 @@ const getRestaurantList = () => {
     return instance.get(`/restaurants/restaurants`);
 };
 
+const getRestaurantById = (restaurantId) => {
+    console.log(instance)
+    return instance.get(`/restaurants/restaurants/${restaurantId}`);
+};
+
 const createRestaurant = (data) => {
     return instance.post(`restaurants/restaurants`, data);
 };
 
-const updateRestaurant = (ownerId, itemId, data) => {
-    return instance.put(`restaurants/owner/${ownerId}/restaurants/${itemId}`, data);
+const updateRestaurant = (ownerId, restaurantId, data) => {
+    return instance.put(`restaurants/owners/${ownerId}/restaurants/${restaurantId}`, data);
 };
+
+const getOwnersList = () => {
+    return instance.get(`/admins/owners`);
+}
+
+const getOwnerByRestaurantId = (restaurantId) => {
+    return instance.get(`/admins/restaurants/${restaurantId}/owner`);
+}
+
 
 // const createMenu = (ownerId, restaurantId, data) => {
 //     return instance.post(`/owner/${ownerId}/restaurant/${restaurantId}/menu-items`, data);
@@ -34,8 +48,11 @@ const updateRestaurant = (ownerId, itemId, data) => {
 
 export const RestaurantService = {
     getRestaurantList,
+    getRestaurantById,
     createRestaurant,
     updateRestaurant,
+    getOwnersList,
+    getOwnerByRestaurantId,
     // createMenu,
     // getMenuList,
     // getMenuItemById,

@@ -10,10 +10,10 @@ function Context(props) {
 
     const [restaurants, setRestaurants] = React.useState([]);
     const [profile, setProfile] = React.useState(null);
-    const [isLogged, setLogged] = React.useState(null);
+    const [logged, setLogged] = React.useState(null);
 
     return (
-        <LoggedStateContext.Provider value={[isLogged, setLogged]}>
+        <LoggedStateContext.Provider value={[logged, setLogged]}>
             <RestaurantsStateContext.Provider value={[restaurants, setRestaurants]}>
                 <ProfileStateContext.Provider value={[profile, setProfile]}>
                     <Routing />

@@ -1,12 +1,10 @@
 import React, { useContext, useEffect } from 'react'
-import axios from 'axios'
 
 import { Typography, Paper } from '@mui/material'
 
 import RestaurantCard from '../../components/Restaurant/RestaurantCard'
 import ResultsHeader from '../ResultsHeader/ResultsHeader'
 import CreateRestaurant from '../../components/CreateModal/CreateRestaurant/CreateRestaurant'
-import { getAuthToken } from '../../Auth/authAxios'
 
 import { useDispatch } from 'react-redux'
 import { changeTitle } from '../../redux/actions/ActionsIndex'
@@ -20,49 +18,39 @@ export default function Restaurants() {
     useEffect(() => {
         dispatch(changeTitle('Restaurants'))
         console.log("INIT")
-        console.log(restaurants)
-        if (restaurants.length == 0) {
+        if (restaurants.length === 0) {
             console.log("NULL")
             RestaurantService.getRestaurantList()
                 .then(function (response) {
                     const re = response.data;
-                    console.log(response.data)
                     setRestaurants(re);
+                    console.log(re)
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
         }
-
-        // axios.get('http://localhost:8080/restaurant/restaurants/restaurants', { headers: { 'Authorization': getAuthToken() } })
-        //     .then(res => {
-        //         console.log(res.data)
-        //         if (Array.isArray(res.data)) {
-        //             setRestaurants(res.data)
-        //         }
-        //     }).catch(e => {
-        //         console.log(e)
-        //     })
-    }, [dispatch, restaurants, setRestaurants])
+    }, [dispatch, restaurants.length, setRestaurants])
 
 
     const reloadRestaurant = () => {
         console.log("reloading")
-        axios.get('http://localhost:8080/restaurant/restaurants/restaurants', { headers: { 'Authorization': getAuthToken() } })
-            .then(res => {
-                console.log(res.data)
-                if (Array.isArray(res.data)) {
-                    setRestaurants(res.data)
-                }
-            }).catch(e => {
-                console.log(e)
+        RestaurantService.getRestaurantList()
+            .then(function (response) {
+                const re = response.data;
+                setRestaurants(re);
+                console.log(re)
             })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     const restaurantList = restaurants.map(restaurant => {
         console.log("CARD")
         return <RestaurantCard
             key={restaurant.id}
+            reload={reloadRestaurant}
             restaurant={restaurant}
             address={restaurant.address} />
     })

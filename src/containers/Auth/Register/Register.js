@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Formik } from 'formik'
 import * as yup from 'yup'
-import axios from 'axios'
 
 import { Button, Avatar, CssBaseline, TextField, Grid, Box, Typography, Container } from '@mui/material'
 import { LockOutlined } from '@mui/icons-material';
@@ -56,7 +55,7 @@ const Register = (props) => {
 
     const handleSubmit = (values) => {
         console.log("Attempting to Register")
-        const rtn = AuthService.register(values).then(result => {
+        AuthService.register(values).then(result => {
             console.log(typeof result)
             console.log(result)
             if (typeof result === "string") {

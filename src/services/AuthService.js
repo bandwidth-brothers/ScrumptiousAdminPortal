@@ -1,14 +1,18 @@
-import instance from "axios";
-import { connect } from "formik";
-import { setAuthToken } from "../axios";
+import instance, { setAuthTokenA } from "../Auth/authAxios";
+import { setAuthTokenR } from "../Auth/restaurantAxios";
 
-const API_URL = "http://localhost:8080/auth/";
 
 class AuthService {
+
+    async getAdminPasswordVerification(adminId, password) {
+        console.log(password)
+        return await instance.post(`auth/${adminId}`, password)
+    }
+
     async login(username, password) {
 
         const response = await instance
-            .post(API_URL + "login", {
+            .post("/login", {
                 username,
                 password
             }).then().catch(err => {
@@ -20,7 +24,8 @@ class AuthService {
             localStorage.setItem('userID', response.data.userId)
             localStorage.setItem('expiresAt', response.data.expiresAt)
             console.log("SETTING")
-            setAuthToken(response.data.token)
+            setAuthTokenR(response.data.token)
+            setAuthTokenA(response.data.token)
         }
 
         return response.data;
@@ -45,7 +50,8 @@ class AuthService {
         localStorage.removeItem('token')
         localStorage.removeItem('userID')
         localStorage.removeItem('expiresAt')
-        setAuthToken(null)
+        setAuthTokenR(null)
+        setAuthTokenA(null)
     }
 
     getUserId() {
