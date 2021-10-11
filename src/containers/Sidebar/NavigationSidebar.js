@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { } from 'react';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -15,6 +15,8 @@ import RestaurantIcon from '@mui/icons-material/Restaurant'
 import { Logout } from '@mui/icons-material'
 
 import { useSelector } from 'react-redux';
+import AuthService from '../../services/AuthService';
+//import { LoggedStateContext } from '../higher-order-components/Context/Context'
 
 const item = {
     py: '2px',
@@ -34,14 +36,12 @@ const itemCategory = {
 export default function Navigation(props) {
     const { ...other } = props;
     const title = useSelector(state => state.title)
-
+    //const [logged, setLogged] = useContext(LoggedStateContext);
 
 
     const logoutHandler = () => {
-        localStorage.removeItem('token')
-        localStorage.removeItem('userID')
-        localStorage.removeItem('expiresAt')
-        console.log('LOGGEDOUT')
+        AuthService.logout().then(() => props.history.push('/admin/logout'))
+        //setLogged(false)
     }
 
     const categories = [
@@ -68,8 +68,7 @@ export default function Navigation(props) {
                 {
                     id: 'Settings',
                     icon: <SettingsIcon />,
-                    link: 'admin/settings'
-
+                    link: '/admin/settings'
                 },
                 {
                     id: 'Logout',

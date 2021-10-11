@@ -8,6 +8,7 @@ import * as yup from 'yup'
 import StateSelect from '../Common/StateSelect'
 //import CreateRestaurantCategory from './CreateRestaurantCategory'
 import { getAuthToken } from '../../../Auth/authAxios'
+import { RestaurantService } from '../../../services/RestaurantService'
 
 const schema = yup.object().shape({
     name: yup.string().required().label('Name').max(100, "Name is too long"),
@@ -46,15 +47,15 @@ const CreateRestaurant = (props) => {
     const [owners, setOwners] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:8080/restaurant/admin/owners', { headers: { 'Authorization': getAuthToken() } })
-            .then(res => {
-                console.log(res.data)
-                if (Array.isArray(res.data)) {
-                    setOwners(res.data)
+        RestaurantService.getOwnersList()
+            .then(response => {
+                if (Array.isArray(response.data)) {
+                    setOwners(response.data)
                 }
-            }).catch(error => {
-                console.log(error)
             })
+            .catch(error => {
+                console.log(error);
+            });
     }, [])
 
     const handleSubmit = (values) => {
@@ -218,7 +219,7 @@ const CreateRestaurant = (props) => {
                         </Box>
                     )}
                 </Formik>
-                <Button onClick={props.onHide}>Close Modal</Button>
+                <Button onClick={props.onHide}>Close</Button>
             </Box>
 
             {/* <Route path="/admin/restaurants/category-collection" component={CreateRestaurantCategory} /> */}

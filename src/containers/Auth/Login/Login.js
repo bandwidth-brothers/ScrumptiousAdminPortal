@@ -1,18 +1,17 @@
-import React from 'react'
-import { Button, Avatar, CssBaseline, TextField, FormControlLabel, Checkbox, Grid, Box, Typography, Container } from '@mui/material'
+import React, { } from 'react'
+import { Button, Avatar, CssBaseline, TextField, Grid, Box, Typography, Container } from '@mui/material'
 import { Formik } from 'formik'
 import { Link } from 'react-router-dom'
 import * as yup from 'yup'
-import axios from 'axios'
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { setAuthToken } from '../../../Auth/authAxios'
 import CenterDiv from '../../UI/CenterDiv/CenterDiv'
 
-import { useDispatch } from 'react-redux'
-import { logIn } from '../../../redux/actions/ActionsIndex'
+import AuthService from '../../../services/AuthService'
+//import { LoggedStateContext } from '../../higher-order-components/Context/Context'
+//import { setAuthToken } from '../../../axios'
 
 const schema = yup.object().shape({
     username: yup.string().required().label('Email').email('Must be a valid email').max(255),
@@ -43,38 +42,21 @@ function Copyright(props) {
 
 const Login = (props) => {
 
-    const dispatch = useDispatch()
+    //const [logged, setLogged] = useContext(LoggedStateContext);
 
     const handleSubmit = (values) => {
-        //event.preventDefault()
-
         console.log("Attempting to Login")
-        //console.log(values)
-        //console.log(props.match.url)
-        axios.post('http://localhost:8080/auth' + props.match.url.replace('/admin', ''), values)
-            .then(res => {
-                //this.setState({ isSubmitting: false })
-
-                //if (res.data.authorities !== "ROLE_ADMIN") {
-                //console.log("NOT ADMIN")
-                //    props.history.push('/admin/forbidden')
-                //} else {
-                localStorage.setItem('token', res.data.token)
-                localStorage.setItem('userID', res.data.userId)
-                localStorage.setItem('expiresAt', res.data.expiresAt)
-
-                // To LOG OFF
-                // localStorage.removeItem('token')
-                setAuthToken(res.data.token)
-                dispatch(logIn())
+        AuthService.login(values.username, values.password).then(result => {
+            console.log(typeof result)
+            if (typeof result === "string") {
+                console.log(result)
+            }
+            if (result !== undefined) {
+                console.log(result)
                 props.history.push('/admin')
-                //window.location.reload(true);
-                //}
-            }).catch(err => {
-                //this.setState({ isSubmitting: false })
-                console.log(err)
-            })
-
+                //setLogged(true)
+            }
+        })
 
     }
 
@@ -140,10 +122,10 @@ const Login = (props) => {
                                         autoComplete="current-password"
                                         InputLabelProps={labelStyle}
                                     />
-                                    <FormControlLabel
+                                    {/* <FormControlLabel
                                         control={<Checkbox value="remember" color="primary" />}
                                         label="Remember me"
-                                    />
+                                    /> */}
                                     <Button
                                         type="submit"
                                         fullWidth

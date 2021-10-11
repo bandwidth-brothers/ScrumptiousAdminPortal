@@ -1,37 +1,30 @@
 import React from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Redirect } from 'react-router-dom'
 
-import Layout from './containers/Layout'
 import Login from './containers/Auth/Login/Login'
 import Logout from './containers/Auth/Logout/Logout'
 import Forbidden from './containers/Auth/Forbidden'
 import Register from './containers/Auth/Register/Register'
 
-import { useSelector } from 'react-redux'
+import Layout from './containers/Layout'
+import ProtectedRoute from './containers/Auth/AuthGuard/ProtectedRoute'
 
 const Routing = () => {
-    const isLoggedIn = useSelector(state => state.logged)
-
     return (
         <  >
-            {isLoggedIn ?
-                <Switch>
-                    <Route exact path="/admin" component={Layout} />
-                    <Route exact path="/admin/restaurants" component={Layout} />
-                    <Route exact path="/admin/logout" component={Logout} />
-                    {/* <Route exact path="/admin/restaurants/:id/category-collection" component={SidebarAndMain} /> */}
-                    <Redirect path="/" to="/admin" />
-                </Switch> :
-                < Switch >
-                    <Route exact path="/admin/login" component={Login} />
-                    <Route exact path="/admin/register" component={Register} />
-                    <Route exact path="/admin/logout" component={Logout} />
-                    <Route exact path="/admin/forbidden" component={Forbidden} />
-                    <Redirect path="/" to="/admin/login" />
-                </ Switch>}
+            <Switch>
+                <ProtectedRoute exact path="/admin" component={Layout} />
+                <ProtectedRoute exact path="/admin/restaurants/:id" component={Layout} />
+                <ProtectedRoute exact path="/admin/restaurants" component={Layout} />
+                <ProtectedRoute exact path="/admin/settings" component={Layout} />
+                <ProtectedRoute exact path="/admin/register" component={Register} disabledOnLoggedIn />
+                <ProtectedRoute exact path="/admin/login" component={Login} disabledOnLoggedIn />
+                <ProtectedRoute exact path="/admin/logout" component={Logout} disabledOnLoggedIn />
+                <ProtectedRoute exact path="/admin/forbidden" component={Forbidden} disabledOnLoggedIn />
+                <Redirect path="/" to="/admin/login" />
+            </ Switch>
+
         </ >
-
-
     )
 }
 

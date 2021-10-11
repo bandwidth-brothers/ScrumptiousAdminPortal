@@ -1,55 +1,58 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useContext, useEffect } from 'react'
 
 import { Typography, Paper } from '@mui/material'
 
 import RestaurantCard from '../../components/Restaurant/RestaurantCard'
 import ResultsHeader from '../ResultsHeader/ResultsHeader'
 import CreateRestaurant from '../../components/CreateModal/CreateRestaurant/CreateRestaurant'
-import { getAuthToken } from '../../Auth/authAxios'
 
 import { useDispatch } from 'react-redux'
 import { changeTitle } from '../../redux/actions/ActionsIndex'
-
+import { RestaurantsStateContext } from '../higher-order-components/Context/Context'
+import { RestaurantService } from '../../services/RestaurantService'
 
 export default function Restaurants() {
     const dispatch = useDispatch()
-    const [restaurants, setRestaurants] = useState([])
+    const [restaurants, setRestaurants] = useContext(RestaurantsStateContext);
 
     useEffect(() => {
         dispatch(changeTitle('Restaurants'))
-        axios.get('http://localhost:8080/restaurant/admin/restaurants', { headers: { 'Authorization': getAuthToken() } })
-            .then(res => {
-                console.log(res.data)
-                if (Array.isArray(res.data)) {
-                    setRestaurants(res.data)
-                }
-            }).catch(e => {
-                console.log(e)
-            })
-    }, [dispatch])
+        console.log("INIT")
+        if (restaurants.length === 0) {
+            console.log("NULL")
+            RestaurantService.getRestaurantList()
+                .then(function (response) {
+                    const re = response.data;
+                    setRestaurants(re);
+                    console.log(re)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+    }, [dispatch, restaurants.length, setRestaurants])
 
 
     const reloadRestaurant = () => {
         console.log("reloading")
-        axios.get('http://localhost:8080/restaurant/admin/restaurants', { headers: { 'Authorization': getAuthToken() } })
-            .then(res => {
-                console.log(res.data)
-                if (Array.isArray(res.data)) {
-                    setRestaurants(res.data)
-                }
-            }).catch(e => {
-                console.log(e)
+        RestaurantService.getRestaurantList()
+            .then(function (response) {
+                const re = response.data;
+                setRestaurants(re);
+                console.log(re)
             })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     const restaurantList = restaurants.map(restaurant => {
         console.log("CARD")
         return <RestaurantCard
             key={restaurant.id}
-            name={restaurant.name}
-            address={restaurant.address}
-            rating={restaurant.rating} />
+            reload={reloadRestaurant}
+            restaurant={restaurant}
+            address={restaurant.address} />
     })
 
 

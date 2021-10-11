@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Formik } from 'formik'
 import * as yup from 'yup'
-import axios from 'axios'
 
 import { Button, Avatar, CssBaseline, TextField, Grid, Box, Typography, Container } from '@mui/material'
 import { LockOutlined } from '@mui/icons-material';
@@ -11,7 +10,7 @@ import { red } from '@mui/material/colors'
 
 import CenterDiv from '../../UI/CenterDiv/CenterDiv'
 
-
+import AuthService from '../../../services/AuthService'
 
 
 const schema = yup.object().shape({
@@ -55,32 +54,16 @@ const Register = (props) => {
     const [errorMsg, setErrorMsg] = useState("\n")
 
     const handleSubmit = (values) => {
-        //event.preventDefault()
-
         console.log("Attempting to Register")
-        console.log(values)
-        axios.post('http://localhost:8080/restaurant/admin/register', values)
-            .then(res => {
-                //this.setState({ isSubmitting: false })
-                // To LOG OFF
-                // localStorage.removeItem('token')
-                //setAuthToken(res.data.token)
-                console.log(res.data)
+        AuthService.register(values).then(result => {
+            console.log(typeof result)
+            console.log(result)
+            if (typeof result === "string") {
+                setErrorMsg(result)
+            } else {
                 props.history.push('/admin/login')
-                //window.location.reload(true);
-
-            }).catch(err => {
-                //console.log(err.response.status)
-                if (err.response.status === 500) {
-                    setErrorMsg("The email already exists in the system or something went wrong.")
-                    console.log(err)
-                } else {
-                    console.log(err)
-                }
-                //this.setState({ isSubmitting: false })
-            })
-
-
+            }
+        })
     }
 
 
