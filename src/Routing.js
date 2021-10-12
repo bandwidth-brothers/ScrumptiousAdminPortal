@@ -14,6 +14,8 @@ const Routing = () => {
         <  >
             <Switch>
                 <ProtectedRoute exact path="/admin" component={Layout} />
+                <ProtectedRoute exact path="/admin/orders" component={Layout} />
+                <ProtectedRoute exact path="/admin/orders/:id" component={Layout} />
                 <ProtectedRoute exact path="/admin/restaurants/:id" component={Layout} />
                 <ProtectedRoute exact path="/admin/restaurants" component={Layout} />
                 <ProtectedRoute exact path="/admin/settings" component={Layout} />

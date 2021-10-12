@@ -9,6 +9,8 @@ import AdminHomepage from '../../higher-order-components/Homepage/AdminHomepage'
 import Restaurants from '../../Restaurants/Restaurants';
 import Settings from '../../Settings/Settings'
 import FullRestaurant from '../../../components/Restaurant/FullRestaurant'
+import OrderDetail from '../../../components/Orders/OrderDetails'
+import OrderList from '../../../components/Orders/OrderList'
 
 export default class MainContent extends Component {
     render() {
@@ -17,6 +19,8 @@ export default class MainContent extends Component {
                 < Switch >
                     <Route exact path="/admin/settings" component={Settings} />
                     <Route exact path="/admin/restaurants/:id" component={FullRestaurant} />
+                    <Route exact path="/admin/orders" component={OrderList} />
+                    <Route exact path="/admin/orders/:id" component={OrderDetail} />    
                     <Route exact path="/admin/restaurants" component={Restaurants} />
                     <Route exact path="/admin/forbidden" component={Forbidden} />
                     <Route exact path="/admin" component={AdminHomepage} />
