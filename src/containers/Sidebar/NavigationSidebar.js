@@ -59,6 +59,12 @@ export default function Navigation(props) {
                     link: "/admin/restaurants"
                 },
 
+                {
+                    id: 'Orders',
+                    icon: <RestaurantIcon />,
+                    link: "/admin/orders"
+                },
+
 
             ],
         },

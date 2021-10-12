@@ -1,27 +1,27 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import { Route, Switch, Link } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
-import { AppBar, Avatar, Button, Grid, IconButton, Toolbar, Tooltip, Typography } from '@mui/material'
-import { Help, Menu, Notifications } from '@mui/icons-material'
+import { AppBar, Grid, Toolbar, Typography } from '@mui/material'
+//import { Help, Menu, Notifications } from '@mui/icons-material'
 
 import { useSelector } from 'react-redux'
 import RestaurantHeader from './RestaurantHeader';
 
 
-const lightColor = 'rgba(255, 255, 255, 0.7)';
+//const lightColor = 'rgba(255, 255, 255, 0.7)';
 
 
 function Header(props) {
-    const { onDrawerToggle } = props;
+    //const { onDrawerToggle } = props;
     const title = useSelector(state => state.title)
 
     return (
         <React.Fragment>
             <AppBar></AppBar>
             <AppBar color="primary" position="sticky" elevation={0}>
-                <Toolbar>
+                {/* <Toolbar>
                     <Grid container spacing={1} alignItems="center">
                         <Grid sx={{ display: { sm: 'none', xs: 'block' } }} item>
                             <IconButton
@@ -64,7 +64,7 @@ function Header(props) {
                             </IconButton>
                         </Grid>
                     </Grid>
-                </Toolbar>
+                </Toolbar> */}
             </AppBar>
             <AppBar
                 component="div"
@@ -80,7 +80,7 @@ function Header(props) {
                                 {title}
                             </Typography>
                         </Grid>
-                        <Grid item>
+                        {/* <Grid item>
                             <Button
                                 sx={{ borderColor: lightColor }}
                                 variant="outlined"
@@ -96,15 +96,12 @@ function Header(props) {
                                     <Help />
                                 </IconButton>
                             </Tooltip>
-                        </Grid>
+                        </Grid> */}
                     </Grid>
                 </Toolbar>
             </AppBar>
             < Switch >
                 <Route path="/admin/restaurants" component={RestaurantHeader} />
-
-                {/* <Route exact path="/admin/restaurants/:id/category-collection" component={SidebarAndMain} />
-            <Route exact path="/admin/restaurants/:id" component={SidebarAndMain} /> */}
             </ Switch>
 
         </React.Fragment>

@@ -8,6 +8,7 @@ import Forbidden from './containers/Auth/Forbidden'
 import Register from './containers/Auth/Register/Register'
 
 import { useSelector } from 'react-redux'
+import OrderDetail from './components/Orders/OrderDetails'
 
 const Routing = () => {
     const isLoggedIn = useSelector(state => state.logged)
@@ -18,6 +19,8 @@ const Routing = () => {
                 <Switch>
                     <Route exact path="/admin" component={Layout} />
                     <Route exact path="/admin/restaurants" component={Layout} />
+                    <Route exact path="/admin/orders" component={Layout} />
+                    <Route exact path="/admin/orders/:id" component={Layout} />
                     <Route exact path="/admin/logout" component={Logout} />
                     {/* <Route exact path="/admin/restaurants/:id/category-collection" component={SidebarAndMain} /> */}
                     <Redirect path="/" to="/admin" />
@@ -30,8 +33,6 @@ const Routing = () => {
                     <Redirect path="/" to="/admin/login" />
                 </ Switch>}
         </ >
-
-
     )
 }
 
