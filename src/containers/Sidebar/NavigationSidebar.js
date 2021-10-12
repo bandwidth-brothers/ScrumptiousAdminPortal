@@ -40,7 +40,8 @@ export default function Navigation(props) {
 
 
     const logoutHandler = () => {
-        AuthService.logout().then(() => props.history.push('/admin/logout'))
+        AuthService.logout()
+        props.history.push('/admin/logout')
         //setLogged(false)
     }
 

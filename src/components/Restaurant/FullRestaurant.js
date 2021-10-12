@@ -271,7 +271,7 @@ function FullRestaurant(props) {
                                 onClick={handleOpen}
                                 className={classes.button}
                             >
-                                {active ? 'DELETE RESTAURANT' : ' ACTIVATE RESTAURANT'}
+                                {active ? 'DEACTIVATE RESTAURANT' : ' ACTIVATE RESTAURANT'}
                             </Button>
                             <Typography component="h1" variant="h6" align="center">
                                 {active ? 'Update Restaurant' : 'NOT ACTIVE'}
