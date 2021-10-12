@@ -1,4 +1,4 @@
-import instance from "../Auth/restaurantAxios";
+import instance from "auth/restaurantAxios";
 
 
 const getRestaurantList = () => {
