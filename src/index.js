@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Provider } from 'react-redux'
 import { createStore } from 'redux';
-import allReducers from './redux/reducers/ReducerIndex'
+import allReducers from 'redux/reducers/ReducerIndex'
 
 
 const store = createStore(allReducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
