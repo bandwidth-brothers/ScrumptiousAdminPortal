@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 //import { useDispatch } from 'react-redux'
 //import { logIn, logOut } from './redux/actions/ActionsIndex'
-import Context from './containers/higher-order-components/Context/Context';
+import Context from 'context/Context';
 
 function App() {
 
