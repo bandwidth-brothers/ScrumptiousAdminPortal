@@ -5,8 +5,8 @@ import axios from 'axios'
 import { Formik } from 'formik'
 import * as yup from 'yup'
 
-import CreateRestaurantCategory from './CreateRestaurantCategory'
 import { getAuthToken } from 'auth/authAxios'
+import { MenuService } from 'services/MenuService'
 
 const schema = yup.object().shape({
     name: yup.string().required().label('Name').max(100, "Name is too long"),
@@ -15,21 +15,30 @@ const schema = yup.object().shape({
 
 const CreateRestaurant = (props) => {
 
+    const id = props.match.params.id;
+
     const handleSubmit = (values) => {
         //event.preventDefault()
 
         console.log("Attempting to Create Menu Item")
         console.log(values)
         console.log(props.location.pathname)
-        axios.post('http://localhost:9041' + props.location.pathname + '/menu-items', values, { headers: { 'Authorization': getAuthToken() } })
-            .then(res => {
+        MenuService.createNewMenuItem(id, values)
+            .then(() => {
                 props.onHide()
-                //props.submitCreate()
-                props.history.push(props.location.pathname + '/menu-items')
-                console.log(res.data)
-            }).catch(error => {
-                console.log(error)
+                props.submitCreate()
             })
+
+        // axios.post('http://localhost:9041' + props.location.pathname + '/menu-items', values, { headers: { 'Authorization': getAuthToken() } })
+        //     .then(res => {
+
+        //         //props.submitCreate()
+        //         props.history.push(props.location.pathname + '/menu-items')
+        //         console.log(res.data)
+
+        //     }).catch(error => {
+        //         console.log(error)
+        //     })
 
 
     }
@@ -136,7 +145,6 @@ const CreateRestaurant = (props) => {
                     Close
                 </Button>
             </Modal.Footer>
-            <Route path="/admin/restaurants/category-collection" component={CreateRestaurantCategory} />
         </Modal>
     )
 
