@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Button, Grid, Paper, TextField, Typography, CssBaseline, Alert, Rating } from '@mui/material';
 import { makeStyles } from '@material-ui/styles';
 
-import { } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { RestaurantService } from 'services/RestaurantService';
 import ChipInput from 'material-ui-chip-input';
 import DeleteConfirmation from 'components/Modals/DeleteModals/DeleteConfirmation';
@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
 
 function FullRestaurant(props) {
     const classes = useStyles();
-    //const history = useHistory();
+    const history = useHistory();
 
     const [restaurants, setRestaurants] = useContext(RestaurantsStateContext);
     const [restaurant, setRestaurant] = useState(null);
@@ -271,7 +271,15 @@ function FullRestaurant(props) {
                                 onClick={handleOpen}
                                 className={classes.button}
                             >
-                                {active ? 'DELETE RESTAURANT' : ' ACTIVATE RESTAURANT'}
+                                {active ? 'DEACTIVATE RESTAURANT' : ' ACTIVATE RESTAURANT'}
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={() => history.replace(`/admin/restaurants/${id}/menu-items`)}
+                                className={classes.button}
+                            >
+                                Go to Menu Items
                             </Button>
                             <Typography component="h1" variant="h6" align="center">
                                 {active ? 'Update Restaurant' : 'NOT ACTIVE'}

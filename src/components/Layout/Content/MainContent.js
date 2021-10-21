@@ -11,6 +11,7 @@ import Settings from 'views/Settings/Settings'
 import FullRestaurant from 'views/Restaurants/Restaurant/FullRestaurant'
 import OrderDetail from 'views/Orders/Order/OrderDetails'
 import OrderList from 'views/Orders/OrderList/OrderList'
+import MenuItemList from 'views/MenuItems/MenuItemList/MenuItemList'
 
 export default class MainContent extends Component {
     render() {
@@ -18,6 +19,7 @@ export default class MainContent extends Component {
             <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
                 < Switch >
                     <Route exact path="/admin/settings" component={Settings} />
+                    <Route exact path="/admin/restaurants/:id/menu-items" component={MenuItemList} />
                     <Route exact path="/admin/restaurants/:id" component={FullRestaurant} />
                     <Route exact path="/admin/orders" component={OrderList} />
                     <Route exact path="/admin/orders/:id" component={OrderDetail} />

@@ -13,6 +13,7 @@ const Routing = () => {
         <  >
             <Switch>
                 <ProtectedRoute exact path="/admin" component={Layout} />
+                <ProtectedRoute exact path="/admin/restaurants/:id/menu-items" component={Layout} />
                 <ProtectedRoute exact path="/admin/orders" component={Layout} />
                 <ProtectedRoute exact path="/admin/orders/:id" component={Layout} />
                 <ProtectedRoute exact path="/admin/restaurants/:id" component={Layout} />
