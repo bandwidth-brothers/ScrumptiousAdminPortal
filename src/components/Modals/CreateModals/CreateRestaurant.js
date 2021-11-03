@@ -6,8 +6,8 @@ import { Formik } from 'formik'
 import * as yup from 'yup'
 
 import StateSelect from 'components/Forms/StateSelect/StateSelect'
-import { getAuthToken } from 'auth/authAxios'
-import { RestaurantService } from 'services/RestaurantService'
+import { getAuthToken } from '../../../auth/authAxios'
+import { RestaurantService } from '../../../services/RestaurantService'
 
 const schema = yup.object().shape({
     name: yup.string().required().label('Name').max(100, "Name is too long"),
