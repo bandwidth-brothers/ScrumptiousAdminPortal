@@ -13,7 +13,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useHistory } from 'react-router-dom';
 
-import { getAuthToken } from 'auth/authAxios'
+import { getAuthToken } from '../Auth/authAxios'
 
 
 const theme = createTheme();
