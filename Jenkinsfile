@@ -15,15 +15,14 @@ pipeline{
 				nodejs(nodeJSInstallationName: 'node'){
 					sh 'npm install'
 					sh 'npm run build'
-					sh 'npm run test'
+					sh 'npm run test:ci'
 					withSonarQubeEnv(installationName:'Sonar Home'){
 						sh "${scannerHome}/bin/sonar-scanner"
 					}
-					sh 'npm uninstall'
 				}
 			}
 		}
-	  stage('deploy'){
+	  	stage('deploy'){
 			steps{
 				withAWS(region: 'us-east-2', credentials: 'aws-creds'){
 					s3Upload(bucket: 'ss-scrumptious-artifacts', file: 'build', path: 'admin-portal/')
