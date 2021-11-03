@@ -10,7 +10,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from
 import { makeStyles, withStyles } from '@material-ui/styles';
 import { useHistory } from 'react-router-dom';
 
-import { getAuthToken } from 'auth/authAxios';
+import { getAuthToken } from '../Auth/authAxios';
 
 
 const useStyles = makeStyles({
