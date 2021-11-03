@@ -6,7 +6,7 @@ import { Formik } from 'formik'
 import * as yup from 'yup'
 
 import CreateRestaurantCategory from './CreateRestaurantCategory'
-import { getAuthToken } from 'auth/authAxios'
+import { getAuthToken } from '../../../auth/authAxios'
 
 const schema = yup.object().shape({
     name: yup.string().required().label('Name').max(100, "Name is too long"),
