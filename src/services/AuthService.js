@@ -1,5 +1,5 @@
-import instance, { setAuthTokenA } from "./Auth/authAxios.js";
-import { setAuthTokenR } from "./auth/restaurantAxios.js";
+import instance, { setAuthTokenA } from "../Auth/authAxios";
+import { setAuthTokenR } from "../Auth/restaurantAxios";
 
 
 class AuthService {
