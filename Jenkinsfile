@@ -14,9 +14,8 @@ pipeline{
 			steps{
 				nodejs(nodeJSInstallationName: 'node'){
 					sh 'npm install'
-					sh 'yarn add auth/authAxios'
 					sh 'npm run build'
-					sh 'npm run test:ci'
+					sh 'npm run test'
 					withSonarQubeEnv(installationName:'Sonar Home'){
 						sh "${scannerHome}/bin/sonar-scanner"
 					}
