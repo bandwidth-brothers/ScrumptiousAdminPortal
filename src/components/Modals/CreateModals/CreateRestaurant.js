@@ -6,7 +6,7 @@ import { Formik } from 'formik'
 import * as yup from 'yup'
 
 import StateSelect from 'components/Forms/StateSelect/StateSelect'
-import { getAuthToken } from '../../../auth/authAxios'
+import { getAuthToken } from '../../../Auth/authAxios'
 import { RestaurantService } from '../../../services/RestaurantService'
 
 const schema = yup.object().shape({
