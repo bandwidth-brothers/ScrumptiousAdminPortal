@@ -4,7 +4,7 @@ import { Form, Button, CloseButton, Row } from 'react-bootstrap'
 import * as yup from 'yup'
 import styled from 'styled-components'
 import axios from 'axios'
-import { getAuthToken } from '../../../auth/authAxios'
+import { getAuthToken } from '../../../Auth/authAxios'
 
 const schema = yup.object().shape({
 
