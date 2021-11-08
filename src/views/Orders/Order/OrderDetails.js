@@ -8,12 +8,12 @@ import Paper from '@mui/material/Paper';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useHistory } from 'react-router-dom';
 
-import { getAuthToken } from 'auth/authAxios'
+import { OrderService } from 'services/OrderService'
+import UpdateOrder from 'components/Modals/UpdateModals/UpdateOrder';
 
 
 const theme = createTheme();
@@ -22,20 +22,55 @@ export default function OrderDetail(props) {
     const history = useHistory();
     const [order, setOrder] = useState(null);
     const id = props.match.params.id;
-
+    const [show, setShow] = useState(false);
     useEffect(() => {
 
-        axios.get(`http://localhost:8080/restaurant/orders/${id}`, { headers: { 'Authorization': getAuthToken() } })
+        if (order === null) {
+            OrderService.getOrderById(id)
+                .then(function (response) {
+                    const re = response.data;
+                    setOrder(re);
+                    console.log(re);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+
+    }, [id, order]);
+
+    const handleOpen = () => {
+        console.log("opeingin");
+        setShow(true)
+    }
+
+    const handleClose = () => {
+        console.log("closing");
+        setShow(false)
+    }
+
+    const reloadOrder = () => {
+        OrderService.getOrderById(id)
             .then(function (response) {
                 const result = response.data;
                 setOrder(result);
-                // console.log(result);
+                console.log(result);
             })
             .catch(function (error) {
                 console.log(error);
             });
+    }
 
-    }, []);
+    const cancelOrder = () => {
+        OrderService.updateOrderById(id, { preparationStatus: "Cancelled" })
+            .then(function (response) {
+                console.log(response);
+                setOrder({ ...order, preparationStatus: "Cancelled" })
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 
     return (
         order ?
@@ -49,7 +84,7 @@ export default function OrderDetail(props) {
                                 Order Number - {order.id}
                             </Typography>
                             <List disablePadding>
-                                {order.menuitemOrder && order.menuitemOrder.map((product) => (
+                                {order.menuitemOrders && order.menuitemOrders.map((product) => (
                                     <ListItem key={product.menuitem.name} sx={{ py: 1, px: 0 }}>
                                         <ListItemText primary={product.menuitem.name} secondary={`$` + product.menuitem.price} />
                                         <Typography variant="body2">{product.quantity}</Typography>
@@ -59,7 +94,7 @@ export default function OrderDetail(props) {
                                 <ListItem sx={{ py: 1, px: 0 }}>
                                     <ListItemText primary="Total Items" />
                                     <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                                        {order.menuitemOrder.reduce((n, { quantity }) => n + quantity, 0)}
+                                        {order.menuitemOrders.reduce((n, { quantity }) => n + quantity, 0)}
                                     </Typography>
                                 </ListItem>
                             </List>
@@ -83,7 +118,7 @@ export default function OrderDetail(props) {
                                             <Typography gutterBottom>Order Time</Typography>
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <Typography gutterBottom>{new Date(order.submittedAt).toLocaleTimeString('en-US')}</Typography>
+                                            <Typography gutterBottom>{new Date(order.submitedAt).toLocaleTimeString('en-US')}</Typography>
                                         </Grid>
                                         <Grid item xs={6}>
                                             <Typography gutterBottom>Delivery Time</Typography>
@@ -101,20 +136,27 @@ export default function OrderDetail(props) {
                                             <Typography gutterBottom>Status</Typography>
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <Typography gutterBottom>{order.status}</Typography>
+                                            <Typography gutterBottom>{order.preparationStatus}</Typography>
                                         </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
                             <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-
+                                <Button onClick={() => { cancelOrder() }} sx={{ mt: 3, ml: 1 }}>
+                                    Cancel
+                                </Button>
+                                <Button onClick={() => handleOpen()} sx={{ mt: 3, ml: 1 }}>
+                                    Edit
+                                </Button>
                                 <Button onClick={() => { history.goBack() }} sx={{ mt: 3, ml: 1 }}>
                                     Back
                                 </Button>
+
                             </Box>
                         </React.Fragment>
                     </Paper>
                 </Container>
+                <UpdateOrder show={show} onHide={handleClose} onSubmit={reloadOrder} />
             </ThemeProvider> : null
     );
 }

@@ -13,6 +13,7 @@ import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@mui/icons-material/Home';
 import SettingsIcon from '@mui/icons-material/Settings';
 import RestaurantIcon from '@mui/icons-material/Restaurant'
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket'
 import { Logout } from '@mui/icons-material'
 
 import AuthService from 'services/AuthService';
@@ -57,7 +58,11 @@ export default function Navigation(props) {
                     icon: <RestaurantIcon />,
                     link: "/admin/restaurants"
                 },
-
+                {
+                    id: 'Orders',
+                    icon: <ShoppingBasketIcon />,
+                    link: "/admin/orders"
+                },
 
             ],
         },

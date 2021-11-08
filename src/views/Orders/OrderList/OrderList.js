@@ -5,13 +5,11 @@ import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Toolbar from '@mui/material/Toolbar';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { OrderService } from 'services/OrderService'
+
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import { useHistory } from 'react-router-dom';
-
-import { getAuthToken } from 'auth/authAxios';
-
 
 const useStyles = makeStyles({
     table: {
@@ -45,10 +43,23 @@ export default function OrderList() {
     const [orderList, setOrderList] = useState(null);
 
     useEffect(() => {
-        if (sessionStorage.getItem("orders")) {
-            setOrderList(JSON.parse(sessionStorage.getItem("orders")));
+        if (orderList === null) {
+            console.log("NULL")
+            OrderService.getAllOrders()
+                .then(function (response) {
+                    const re = response.data;
+                    setOrderList(re);
+                    console.log(re)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
-    }, []);
+
+        // if (sessionStorage.getItem("orders")) {
+        //     setOrderList(JSON.parse(sessionStorage.getItem("orders")));
+        // }
+    }, [orderList, setOrderList]);
 
     const handleRowClick = (event, id) => {
         // console.log("row link: " + id);
@@ -56,15 +67,16 @@ export default function OrderList() {
     };
 
     const searchRequest = (e) => {
+
         if (e.keyCode === 13) {
-            axios.get(`http://localhost:8080/restaurant/orders/restaurants/${rid}/orders`, { headers: { 'Authorization': getAuthToken() } })
-                .then(res => {
-                    // console.log(res.data)
-                    setOrderList(res.data)
-                    sessionStorage.setItem("orders", JSON.stringify(res.data));
-                }).catch(e => {
-                    console.log(e)
-                })
+            // axios.get(`http://localhost:8080/restaurant/orders/restaurants/${rid}/orders`, { headers: { 'Authorization': getAuthToken() } })
+            //     .then(res => {
+            //         // console.log(res.data)
+            //         setOrderList(res.data)
+            //         sessionStorage.setItem("orders", JSON.stringify(res.data));
+            //     }).catch(e => {
+            //         console.log(e)
+            //     })
         }
     };
 
@@ -118,12 +130,12 @@ export default function OrderList() {
                                     {row.id}
                                 </StyledTableCell>
                                 <StyledTableCell align="center">{row.confirmationCode}</StyledTableCell>
-                                <StyledTableCell align="center">{new Date(row.submittedAt).toLocaleTimeString('en-US')}</StyledTableCell>
+                                <StyledTableCell align="center">{new Date(row.submitedAt).toLocaleTimeString('en-US')}</StyledTableCell>
                                 <StyledTableCell align="center">{new Date(row.requestedDeliveryTime).toLocaleTimeString('en-US')}</StyledTableCell>
                                 <StyledTableCell
                                     align="center"
-                                    style={row.status === "PENDING" ? { color: "red" } : { color: "GREEN" }}
-                                >{row.status}</StyledTableCell>
+                                    style={row.preparationStatus === "PENDING" ? { color: "red" } : { color: "GREEN" }}
+                                >{row.preparationStatus}</StyledTableCell>
                             </StyledTableRow>
                         ))}
                     </TableBody>
