@@ -22,7 +22,7 @@ export default function OrderDetail(props) {
     const history = useHistory();
     const [order, setOrder] = useState(null);
     const id = props.match.params.id;
-
+    const [show, setShow] = useState(false);
     useEffect(() => {
 
         if (order === null) {
@@ -39,6 +39,28 @@ export default function OrderDetail(props) {
 
     }, [id, order]);
 
+    const handleOpen = () => {
+        console.log("opeingin");
+        setShow(true)
+    }
+
+    const handleClose = () => {
+        console.log("closing");
+        setShow(false)
+    }
+
+    const reloadOrder = () => {
+        OrderService.getOrderById(id)
+            .then(function (response) {
+                const result = response.data;
+                setOrder(result);
+                console.log(result);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     const cancelOrder = () => {
         OrderService.updateOrderById(id, { preparationStatus: "Cancelled" })
             .then(function (response) {
@@ -49,17 +71,6 @@ export default function OrderDetail(props) {
                 console.log(error);
             });
     }
-
-    // const cancelOrder = () => {
-    //     OrderService.updateOrderById(id, { preparationStatus: "Cancelled" })
-    //         .then(function (response) {
-    //             console.log(response);
-    //             setOrder({ ...order, preparationStatus: "Cancelled" })
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    // }
 
     return (
         order ?
@@ -134,16 +145,18 @@ export default function OrderDetail(props) {
                                 <Button onClick={() => { cancelOrder() }} sx={{ mt: 3, ml: 1 }}>
                                     Cancel
                                 </Button>
+                                <Button onClick={() => handleOpen()} sx={{ mt: 3, ml: 1 }}>
+                                    Edit
+                                </Button>
                                 <Button onClick={() => { history.goBack() }} sx={{ mt: 3, ml: 1 }}>
                                     Back
                                 </Button>
-                                <Button sx={{ mt: 3, ml: 1 }}>
-                                    <UpdateOrder />
-                                </Button>
+
                             </Box>
                         </React.Fragment>
                     </Paper>
                 </Container>
+                <UpdateOrder show={show} onHide={handleClose} onSubmit={reloadOrder} />
             </ThemeProvider> : null
     );
 }
